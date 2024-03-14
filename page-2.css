@@ -1,0 +1,223 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+main{
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.login-1 select{
+    font-size: 12px !important;
+}
+
+.electric-ev h2{
+    font-family: nyt-cheltenham,georgia,'times new roman',times,serif;
+    font-weight: 700;
+    font-style: italic;
+    font-size: 2.3rem;
+    line-height: 2.875rem;
+    text-align: left;
+}
+
+.electric-ev p{
+    padding-top: 0.8rem;
+    font-size: 1.4375rem;   
+    line-height: 1.875rem;
+    color: rgb(54, 54, 54);
+    padding-bottom: 1.8rem;
+}
+
+.share-articles{
+    display: flex;
+    flex-wrap: wrap;
+    /* justify-content: space-between; */
+}
+
+.share-articles li{
+    list-style-type: none;
+}
+
+.sharing-articles{
+    margin-left: 1rem;
+}
+
+.share-articles li a button{
+    border-radius: 50px;
+    padding: 0.6rem;
+    border: 1px solid #bcb7b7;
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.share-articles li a button:hover{
+    background: #d5d0d0;
+    cursor: pointer;
+}
+
+.ny-pic{
+    margin-top: 1.7rem;   
+}
+
+.ny-pic p{
+    font-size: 0.9975rem;
+    line-height: 1.25rem;
+    color: rgb(114, 114, 114);
+}
+
+.ny-pic img{
+    width: 100%;
+    height: auto;
+    /* display: block; */
+}
+
+.main-content{
+    margin-top: 2.2rem;
+}
+
+.main-contents{
+    display: flex;
+    flex-wrap: wrap;
+    /* justify-content: center; */
+    align-items: center;
+}
+
+.jack-pic img{
+    width: 40%;
+    height: auto;
+}
+
+.jack-pic-contents{
+    margin-left: -4rem;
+}
+
+.global-contents p{
+    font-size: 1.25rem;
+    line-height: 1.875rem;
+    font-family: nyt-imperial,georgia,'times new roman',times,serif;
+    margin-block: 0.9375rem 
+}
+
+.main-content-1 p{
+    font-family: sans-serif;
+}
+
+.main-content-1 p a{
+    text-decoration: underline;
+}
+
+.main-content-1 button{
+    background-color: rgb(86, 123, 149);
+    border: 1px solid rgb(50, 104, 145);
+    border-radius: 3px;
+    color: white;
+    display: block;
+    font-family: nyt-franklin, helvetica, arial, sans-serif;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    line-height: 1.5rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 5px 0px;
+    text-transform: uppercase;
+    transition: background-color 0.6s ease 0s;
+    width: 100%;
+    margin-block: 1.8rem;
+}
+
+.driverless-car h2{
+    font-size: 1.75rem;
+    line-height: 2rem;
+    font-family: nyt-cheltenham, georgia, "times new roman", times, serif;
+    font-weight: 700;
+}
+
+
+aside{
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.foot{
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+}
+
+.worlds-news-2{
+    flex-basis: calc(33% - 1rem);
+    margin-bottom: 2rem;
+}
+
+.worlds-news-2 img{
+    width: 100%;
+    height: 180px;
+    display: block;
+    /* height: auto; */
+    cursor: pointer;
+}
+
+.worlds-news-2 p{
+    margin-top: 0.3rem;
+    padding-top: 0.5rem;
+    font-size: 1.26rem;
+    line-height: 1.5rem;
+    font-weight: 500;
+    color: rgb(18, 18, 18,);
+    font-family: nyt-cheltenham, georgia, "times new roman", times, serif;
+}
+
+.worlds-news-2 p:hover{
+    color: #9c9797;
+    cursor: pointer;
+}
+
+.whole-sale-news{
+    width: 120%;
+    border-top: 1px solid #000;
+}
+
+.trending-in-times{
+    margin-left: 1rem;
+}
+
+.trending-in-times h5{
+    padding-block: 0.8rem;
+    border-bottom: 1px solid #dddddd;
+    margin-bottom: 1rem;
+    line-height: 1.2rem;
+    font-family: nyt-franklin, helvetica, arial, sans-serif;
+    font-size: 1.1rem;
+}
+
+.trending-in-times ul li{
+    list-style-type: none;
+    /* font-weight: 500; */
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #dddddd;
+    margin-bottom: 1.2rem;
+
+}
+
+.trending-in-times ul li a{
+    text-decoration: none;
+    font-size: 1.1875rem;
+    line-height: 1.4375rem;
+    color: #121212;
+    font-weight: 500;
+    font-family: serif;
+}
+
+.trending-in-times ul li a:hover{
+    color: #9c9797;
+}
+
+.foot{
+    display: flex;
+    /* flex-wrap: wrap; */
+    justify-content: space-between;
+}

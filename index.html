@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Headlines</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Asap:wght@100;200&family=Barlow:wght@100&family=Roboto+Condensed:wght@300&family=Teko:wght@600&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Asap:wght@100;200&family=Barlow:wght@100&family=Playfair+Display&family=Roboto+Condensed:wght@300&family=Roboto:wght@300;400&family=Teko:wght@600&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/81a03866de.js" crossorigin="anonymous"></script>
+
+    <!-- Bootstrap -->
+    <!-- <link rel="stylesheet" href="./boostrap/bootstrap.min.css" /> -->
+    <!-- <script src="./boostrap/bootstrap.min.js"></script> -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    
+    <!-- Fancybox CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" rel="stylesheet">
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  
+    <!-- Fancybox JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+  
+
+</head>
+<body>
+    
+<section>
+    <div class="header">
+        <div class="container-1">
+            <div class="menu">
+                <img src="images/menu.png" class="menu-icon downButton d-none">
+                <a href="search.html">
+                  <button type="submit" class="button">
+                    <i class="fa fa-search"></i>
+                  </button>
+                </a>
+            </div>
+            
+            <div class="uiceg">
+                <a class="us" href="" >INDIA</a>
+                <a href="page-1.html">INTERNATIONAL</a>
+                <!-- <a href="">CANADA</a> -->
+                <!-- <a href="">Español</a> -->
+                <!-- <a href="">中文</a> -->
+            </div>
+            <div class="P-login">
+                <!-- <div class="play">PLAY SPELLING BEE</div> -->
+                <div class="login">
+                  <a href="Login.html" style="text-decoration: none; color: #fff;"> LOG IN </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="container-2">
+            <div class="date-time">Wednesday February 21, 2024<br><span class="span-1">Today's Paper</span></div>
+            <h1>Global Headlines Hub</h1>
+            <div class="dow" style="visibility: hidden;"> Dow <span>+0.25%</span></div>
+        </div>
+        <hr class="line-1">
+        <div class="container-3">
+          
+          <div id="nav-categoryList" class="short-videos-news">
+            <script>
+              // When the document is ready
+              $(document).ready(function() {
+                  // Make AJAX request to the API endpoint
+                  $.ajax({
+                      url: 'https://49.205.196.123:4418/api/NewsMaster/GetNewsCategory?type=0',
+                      type: 'GET',
+                      success: function(response) {
+                          // Process the response and dynamically render the content
+                          response.forEach(function(category) {
+                              // Add button for each category
+                              var button = $('<button>').addClass('downButton')
+                                                       .attr('data-category-id', category.category_Id)
+                                                       .attr('data-category-name', category.categoryName)
+                                                       .text(category.categoryName);
+                              // Append the button to the main container
+                              $('#nav-categoryList').append(button);
+                          });
+                      },
+                      error: function(xhr, status, error) {
+                          console.error('Error fetching data:', error);
+                      }
+                  });
+              });
+            </script>
+          </div>
+        </div>
+        <hr class="line-2">
+        <hr class="line-2">
+    
+    </div>
+
+
+<!----------------------  Left-hand-Content  -------------------------->
+<div class="main-contant-1" style="border-bottom: 1px solid #dddddd;">
+
+  <div class="left-p" id="newsContainer">
+    <!-- News items will be populated here -->
+
+    
+    
+    <script>
+      // Fetch data from API
+      fetch('https://49.205.196.123:4418/api/NewsMaster/GetDefultnews')
+        .then(response => response.json())
+        .then(data => {
+          const container = document.getElementById('newsContainer');
+          data.sort((a, b) => b.defult_H1 - a.defult_H1);
+    
+          // Iterate through each news item and create HTML structure
+          data.forEach(newsItem => {
+            const itemDiv = document.createElement('div');
+            itemDiv.classList.add('cont');
+    
+            const artDiv = document.createElement('div');
+            artDiv.classList.add('item-1');
+    
+            const title = document.createElement('h3');
+            title.classList.add('downButton');
+            title.textContent = newsItem.title;
+    
+            const description = document.createElement('p');
+            description.textContent = newsItem.content;
+    
+            const anchor = document.createElement('a');
+            anchor.href = '#'; // Set a placeholder href, it will be updated based on condition
+    
+            // Create image element for photos
+            const mediaElement = document.createElement('img');
+            mediaElement.src = newsItem.thumbnailURL;
+            mediaElement.width = '550';
+            mediaElement.height = '300'; // Set the height for images
+            mediaElement.classList.add('downButton');
+    
+            const authorDateDiv = document.createElement('div');
+            authorDateDiv.classList.add('author-date');
+            authorDateDiv.textContent = `${newsItem.authorName} - ${new Date(newsItem.publishDate).toLocaleDateString()}`;
+    
+       // Check if filePath exists and add play button overlay if it does
+if (newsItem.filePath && newsItem.filePath.trim() !== '') {
+  const playButton = document.createElement('div');
+  playButton.classList.add('play-button-left');
+  playButton.addEventListener('click', () => {
+    // Redirect to the page specified by FilePath
+    window.location.href = newsItem.filePath;
+  });
+  artDiv.appendChild(playButton);
+}
+
+    
+            // Append elements to their respective parent containers
+            artDiv.appendChild(title);
+            artDiv.appendChild(description);
+            anchor.appendChild(mediaElement); // Add the media element inside the anchor
+            artDiv.appendChild(anchor); // Add the anchor inside the artDiv
+            itemDiv.appendChild(artDiv);
+    
+            // Append thumbnail container and author/date to itemDiv
+            itemDiv.appendChild(authorDateDiv);
+    
+            container.appendChild(itemDiv);
+          });
+        })
+        .catch(error => console.error('Error fetching data:', error));
+    </script>
+    
+    
+    
+    
+    
+    </div>
+
+<!-----------------------------Right-Hand-Content  -------------------------------------------------->
+<div class="right-po">
+  <div class="cont-r" id="rightContentContainer">
+    <!-- Right-hand content will be populated here -->
+  </div>
+  <script>
+   // Fetch data for right-hand content
+fetch('https://49.205.196.123:4418/api/NewsMaster/GetNewsByTag?TagID=1&CategoryID=11')
+  .then(response => response.json())
+  .then(data => {
+    const container = document.getElementById('rightContentContainer');
+
+    // Iterate through each item and create HTML structure for right-hand content
+    data.forEach((newsItem, index) => {
+      console.log(`Processing news item ${index + 1}:`, newsItem); // Log the current news item
+      
+      const columnDiv = document.createElement('div');
+      columnDiv.classList.add('column-r');
+
+      const rowDiv = document.createElement('div');
+      rowDiv.classList.add('row-r');
+
+      const column1Div = document.createElement('div');
+      column1Div.classList.add('column-inr-1');
+
+      // Create image element for both videos and photos
+      const mediaElement = document.createElement('img');
+      mediaElement.src = newsItem.thumbnailURL;
+      mediaElement.width = '350';
+      mediaElement.height = '200'; // Lock the height for images
+      mediaElement.classList.add('downButton');
+
+      const column1TextDiv = document.createElement('div');
+      column1TextDiv.classList.add('column-inr-1-text');
+
+      const title1 = document.createElement('h3');
+      title1.classList.add('downButton');
+      title1.textContent = newsItem.title;
+
+      const description1 = document.createElement('p');
+      description1.style.color = 'grey';
+      description1.textContent = newsItem.content;
+
+      column1TextDiv.appendChild(title1);
+      column1TextDiv.appendChild(description1);
+
+      column1Div.appendChild(mediaElement);
+      column1Div.appendChild(column1TextDiv);
+
+// Check if filePath exists and add play button overlay if it does
+if (newsItem.filePath && newsItem.filePath.trim() !== '') {
+  const playButton = document.createElement('div');
+  playButton.classList.add('play-button-right');
+  playButton.addEventListener('click', () => {
+    // Redirect to the page specified by FilePath
+    window.location.href = newsItem.filePath;
+  });
+  column1Div.appendChild(playButton);
+}
+
+
+      rowDiv.appendChild(column1Div);
+      container.appendChild(rowDiv);
+
+      const hr = document.createElement('hr');
+      hr.classList.add('line-a');
+      container.appendChild(hr);
+    });
+  })
+  .catch(error => console.error('Error fetching data:', error));
+
+  </script>
+</div>
+
+
+
+
+      
+    </div>
+    <!-- <hr class="line-3"> -->
+
+
+    <br />
+    <br />
+    <!------------------------- Latest News---------------------- -->
+    <div class="latest-news">
+      <h2>Latest News</h2>
+
+      <div class="latest-news-content" id="latestNewsContainer">
+        <!-- Latest news items will be populated here -->
+      </div>
+      <script>
+        // Fetch data from API
+        fetch('https://49.205.196.123:4418/api/NewsMaster/GetNewsByTOP?TagID=1&CategoryID=1')
+          .then(response => response.json())
+          .then(data => {
+            const container = document.getElementById('latestNewsContainer');
+      
+            // Iterate through each news item and create HTML structure
+            data.forEach(newsItem => {
+              const blogDiv = document.createElement('div');
+              blogDiv.classList.add('latest-news-blog');
+      
+              // Create image element
+              const imageElement = document.createElement('img');
+              imageElement.src = newsItem.thumbnailURL;
+              imageElement.alt = 'News Image';
+              imageElement.classList.add('downButton');
+      
+              // Check if filePath exists and add appropriate icon
+              if (newsItem.filePath && newsItem.filePath.trim() !== '') {
+                const playButton = document.createElement('div');
+                playButton.classList.add('play-button');
+                playButton.addEventListener('click', () => {
+                  // Redirect to the page specified by FilePath
+                  window.location.href = newsItem.filePath;
+                });
+                // Append play button inside the image element
+                imageElement.appendChild(playButton);
+      
+                // Create video icon element and append it to the image element
+                const videoIcon = document.createElement('i');
+                videoIcon.classList.add('fa-solid', 'fa-video');
+                imageElement.appendChild(videoIcon);
+              } else {
+                // Create newspaper icon element and append it to the image element
+                const newspaperIcon = document.createElement('i');
+                newspaperIcon.classList.add('fa-solid', 'fa-newspaper');
+                imageElement.appendChild(newspaperIcon);
+              }
+      
+              // Create heading element
+              const headingElement = document.createElement('h2');
+              headingElement.classList.add('downButton');
+              headingElement.textContent = newsItem.title;
+      
+              // Create paragraph element for description
+              const descriptionElement = document.createElement('p');
+              descriptionElement.textContent = newsItem.content;
+      
+              // Create span element for additional information
+              const infoSpan = document.createElement('span');
+              infoSpan.classList.add('latest-news-nature');
+              infoSpan.textContent = `${newsItem.authorName} | ${new Date(newsItem.publishDate).toLocaleDateString()} | ${newsItem.duration}`;
+      
+              // Append elements to the blogDiv
+              blogDiv.appendChild(imageElement);
+              blogDiv.appendChild(headingElement);
+              blogDiv.appendChild(descriptionElement);
+              blogDiv.appendChild(infoSpan);
+      
+              // Append blogDiv to the container
+              container.appendChild(blogDiv);
+            });
+          })
+          .catch(error => console.error('Error fetching data:', error));
+      </script>
+      
+      
+
+    </div>
+
+    <br />
+    <br />
+    <br />
+
+    <div>
+      <div class="short-videos">
+        <h2>Shorts</h2>
+        <button>View All <i class="fa-regular fa-paper-plane" style="color: red;"></i></button>
+      </div>
+  <!-- Container for the buttons -->
+  <div id="categoryList" class="short-videos-news">
+    <script>
+      // When the document is ready
+      $(document).ready(function() {
+          // Make AJAX request to the API endpoint
+          $.ajax({
+              url: 'https://49.205.196.123:4418/api/NewsMaster/GetNewsCategory?type=1',
+              type: 'GET',
+              success: function(response) {
+                  // Process the response and dynamically render the content
+                  response.forEach(function(category) {
+                      // Add button for each category
+                      var button = $('<button>').addClass('downButton')
+                                               .attr('data-category-id', category.category_Id)
+                                               .attr('data-category-name', category.categoryName)
+                                               .text(category.categoryName);
+                      // Append the button to the main container
+                      $('#categoryList').append(button);
+                  });
+              },
+              error: function(xhr, status, error) {
+                  console.error('Error fetching data:', error);
+              }
+          });
+      });
+    </script>
+  </div>
+
+
+      <br />
+      
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <!-- Modal content goes here -->
+    </div>
+
+    <!-- Modal 2nd-->
+    <div class="modal fade" id="exampleModal-1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <!-- Modal content goes here -->
+    </div>
+
+    <!-- Modal 3rd-->
+    <div class="modal fade" id="exampleModal-2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <!-- Modal content goes here -->
+    </div>
+
+    <!-- Modal 4th-->
+    <div class="modal fade" id="exampleModal-3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <!-- Modal content goes here -->
+    </div>
+
+    <!-- Modal 5th-->
+    <div class="modal fade" id="exampleModal-4" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <!-- Modal content goes here -->
+    </div>
+
+    <!-- Modal Content for Sharing -->
+    <div id="dialog-content" style="display:none; width:500px; border-radius: 6px;">
+        <!-- Sharing icons content goes here -->
+    </div>
+
+    <!-- Latest News Content -->
+    <div class="latest-news-content-1">
+        <!-- Dynamic content generated from API response goes here -->
+    </div>
+
+    <script>
+      $(document).ready(function() {
+      // Make AJAX request to the API endpoint
+      $.ajax({
+          url: 'https://49.205.196.123:4418/api/NewsMaster/GetShortByHead',
+          type: 'GET',
+          success: function(response) {
+              // Process the response and dynamically render the content
+              response.forEach(function(data, index) {
+                  // Add thumbnail to each modal
+                  $('#exampleModal-' + index + ' img').attr('src', data.thumbnailURL);
+
+                  // Add data to the latest news content
+                  var latestNewsContent = $('<div>').addClass('latest-news-blog-1')
+                      .attr('data-bs-toggle', 'modal')
+                      .attr('data-bs-target', '#exampleModal-' + index)
+                      .attr('data-contentid', data.contentID); // Use data.contentID for the ContentID
+                  var image = $('<img>').attr('src', data.thumbnailURL).attr('alt', 'Thumbnail Image').addClass('thumbnail');
+                  var paragraph = $('<p>').text(data.title).addClass('title');
+                  var seeMoreButton = $('<button>').text('See More').addClass('see-more-btn').hide(); 
+                  latestNewsContent.append(image).append(paragraph).append(seeMoreButton);
+
+                  // Create video icon element and append it to the latest news content
+                  // const videoIcon = $('<i>').addClass('fas fa-play play-icon');
+                  const videoIcon = $('<div>').addClass('play-button-left playy-icon');
+                  latestNewsContent.append(videoIcon);
+
+                  // Check if title exceeds three lines
+                  if (paragraph[0].scrollHeight > 2 * paragraph.innerHeight()) {
+                      // Truncate the title and add "..." to indicate truncation
+                      var truncatedTitle = data.title.substring(0, 50) + '...';
+                      paragraph.text(truncatedTitle);
+                      seeMoreButton.show(); // Show the button if title exceeds two lines
+                  }
+
+                  $('.latest-news-content-1').append(latestNewsContent);
+
+                  // Log the data-contentid attribute value for debugging
+                  console.log('data-contentid:', latestNewsContent.attr('data-contentid'));
+              });
+          },
+          error: function(xhr, status, error) {
+              console.error('Error fetching data:', error);
+          }
+      });
+
+        // Event listener for thumbnail click
+        $(document).on('click', '.latest-news-blog-1', function() {
+            var contentID = $(this).data('contentid'); // Retrieve the ContentID from data-contentid attribute
+            console.log('Clicked ContentID:', contentID); // Log the contentID before redirection
+            // Redirect to another page with the ContentID
+            window.location.href = 'shorts.html?contentID=' + contentID;
+        });
+      });
+    </script>
+  
+  
+
+    <br />
+    <br />
+    <br />
+    <div class="latest-news">
+      <h2 class="breaking-news">Breaking News</h2>
+    
+      <div class="latest-news-content" id="latestNewsContainer1">
+        <!-- News items will be populated here -->
+      </div>
+      <br />
+      <br />
+    
+      <div class="latest-news-content" id="latestNewsContainer2">
+        <!-- News items will be populated here -->
+      </div>
+    </div>
+    
+    <script>
+      // Fetch data from API
+      fetch('https://49.205.196.123:4418/api/NewsMaster/GetNewsByTOP?TagID=1&CategoryID=1')
+        .then(response => response.json())
+        .then(data => {
+          const container1 = document.getElementById('latestNewsContainer1');
+          const container2 = document.getElementById('latestNewsContainer2');
+    
+          // Iterate through each news item and create HTML structure for first container
+          data.slice(0, 4).forEach(newsItem => {
+            const blogDiv = createBlogDiv(newsItem);
+            container1.appendChild(blogDiv);
+          });
+    
+          // Iterate through each news item and create HTML structure for second container
+          data.slice(4).forEach(newsItem => {
+            const blogDiv = createBlogDiv(newsItem);
+            container2.appendChild(blogDiv);
+          });
+        })
+        .catch(error => console.error('Error fetching data:', error));
+    
+      // Function to create a blog div
+      function createBlogDiv(newsItem) {
+        const blogDiv = document.createElement('div');
+        blogDiv.classList.add('latest-news-blog');
+    
+        // Create image element
+        const imageElement = document.createElement('img');
+        imageElement.src = newsItem.thumbnailURL;
+        imageElement.alt = 'News Image';
+        imageElement.classList.add('downButton');
+    
+        // Create heading element
+        const headingElement = document.createElement('h2');
+        headingElement.classList.add('downButton');
+    
+        // Check if filePath exists and add play button overlay if it does
+        if (newsItem.filePath && newsItem.filePath.trim() !== '') {
+          const playButton = document.createElement('div');
+          playButton.classList.add('custom-play-button');
+          playButton.addEventListener('click', () => {
+            // Redirect to the page specified by FilePath
+            window.location.href = newsItem.filePath;
+          });
+          // Append play button inside the image element
+          imageElement.appendChild(playButton);
+          // Set the heading text with video icon
+          headingElement.innerHTML = `<i class="fa-solid fa-video"></i> ${newsItem.title}`;
+        } else {
+          // Set the heading text with newspaper icon
+          headingElement.innerHTML = `<i class="fa-solid fa-newspaper"></i> ${newsItem.title}`;
+        }
+    
+        // Create paragraph element for description
+        const descriptionElement = document.createElement('p');
+        descriptionElement.textContent = newsItem.content;
+    
+        // Create span element for author and date
+        const infoSpan = document.createElement('span');
+        infoSpan.classList.add('author-date');
+        infoSpan.textContent = `${newsItem.authorName} - ${new Date(newsItem.publishDate).toLocaleDateString()}`;
+    
+        // Append elements to the blogDiv
+        blogDiv.appendChild(imageElement);
+        blogDiv.appendChild(headingElement);
+        blogDiv.appendChild(descriptionElement);
+        blogDiv.appendChild(infoSpan);
+    
+        return blogDiv;
+      }
+    </script>
+    
+    <br />
+    <br />
+    <br />
+    <!-- <br /> -->
+
+    <hr class="line-2">
+    <hr class="line-2">
+
+    <br />
+    <br />
+    <br />
+    <!-- <br /> -->
+
+    <div class="whole-sale-news">
+      <h2>NEWS</h2>
+      <div class="worlds-news">
+        <div class="worlds-news-1">
+          <h5>World News</h5>
+          <img src="./images/phone_girl.jpg" class="downButton"/>
+          <p class="downButton">Israel-Hamas War: Israeli Warning Raises Prospect of a Broader War</p>
+        </div>
+        <div class="worlds-news-1">
+          <h5>U.S. News</h5>
+          <img src="./images/Lior_assaf.jpeg" class="downButton"/>
+          <p class="downButton">When Migrant Children Are Living, and Often Working, in the U.S.</p>
+        </div>
+        <div class="worlds-news-1">
+          <h5>U.S. Politics</h5>
+          <img src="./images/jim_dwane.jpeg" class="downButton"/>
+          <p class="downButton">Primaries, Polls and Party Shares: It's Time for the Mailbag.</p>
+        </div>
+        <div class="worlds-news-1">
+          <h5>New York</h5>
+          <img src="./images/Girl & boy.jpeg" class="downButton"/>
+          <p class="downButton">How Columbia's President Has Avoided Fallout Over Israel-Hamas Protests</p>
+        </div>
+        <div class="worlds-news-1">
+          <h5>Business</h5>
+          <img src="./images/Father-son.jpeg" class="downButton"/>
+          <p class="downButton">True-Crime Podcasts About Trump Are Everywhere</p>
+        </div>
+      </div>
+      <br />
+      <br />
+      <div class="worlds-news">
+        <div class="worlds-news-1">
+          <h5>Technology</h5>
+          <img src="./images/Bedroom_wallpaper.jpeg" class="downButton"/>
+          <p class="downButton">U.S. Regulators Propose New Online Privacy Safeguards for Children</p>
+        </div>
+        <div class="worlds-news-1">
+          <h5>Science</h5>
+          <img src="./images/Bridge_image.jpeg" class="downButton"/>
+          <p class="downButton">The First Secret Asteroid Mission Won't Be the Last</p>
+        </div>
+        <div class="worlds-news-1">
+          <h5>Sports</h5>
+          <img src="./images/image--2.png" class="downButton"/>
+          <p class="downButton">Ranking N.F.L. Teams From First to Worst, With an M.V.P for Each</p>
+        </div>
+        <div class="worlds-news-1">
+          <h5>Obituaries</h5>
+          <img src="./images/image--1.png" class="downButton"/>
+          <p class="downButton">Herbert Kohl, Former Wisconsin Senator and Milwaukee Bucks Owner, Dies at 88</p>
+        </div>
+        <div class="worlds-news-1">
+          <h5>The Upshot</h5>
+          <img src="./images/bike.riding.jpeg" class="downButton"/>
+          <p class="downButton">Why Parents Give Their Children a Last Name Other Than the Father's</p>
+        </div>
+      </div>
+
+      <br />
+      <br />
+      <div class="worlds-news">
+        <div class="worlds-news-1">
+          <h5>Climate and Environment</h5>
+          <img src="./images/image--3.png" class="downButton"/>
+          <p class="downButton">A Natural Gas Project Is Biden's Next Big Climate Test</p>
+        </div>
+        <div class="worlds-news-1">
+          <h5>Education</h5>
+          <img src="./images/image--4.png" class="downButton"/>
+          <p class="downButton">In Florida's Hot Political Climate, Some Faculty Have Had Enough</p>
+        </div>
+        <div class="worlds-news-1">
+          <h5>Health</h5>
+          <img src="./images/image--5.png" class="downButton"/>
+          <p class="downButton">This Gorilla's Caregivers Face Familiar Questions About Aging</p>
+        </div>
+        <div class="worlds-news-1">
+          <h5>Reader Center</h5>
+          <img src="./images/eric_white.jpeg" class="downButton"/>
+          <p class="downButton">For a Times Critic on Deadline, a Dramatic Reversal</p>
+        </div>
+        <div class="worlds-news-1">
+          <h5>Explore Times Events</h5>
+          <img src="./images/Food_2.jpeg" class="downButton"/>
+          <p class="downButton">The Fault Lines at Climate Week</p>
+        </div>
+      </div>
+
+
+    </div>
+
+    <br />
+    <br />
+    <br />
+    <!-- <br /> -->
+    
+    <div class="whole-sale-news">
+      <h2 style="padding-bottom: 1rem; border-bottom: 1px solid #000;">OPINION</h2>
+      <div class="worlds-news">
+        <div class="worlds-news-1">
+          <h5>Opinion</h5>
+          <img src="./images/image--6.png" class="downButton"/>
+          <p class="downButton">Things I Thought Made Sense Just Don't Anymore</p>
+        </div>
+        <div class="worlds-news-1">
+          <h5>Opinion Columnists</h5>
+          <img src="./images/image--7.png" class="downButton"/>
+          <p class="downButton">The Sidney Awards</p>
+        </div>
+        <div class="worlds-news-1">
+          <h5>Editorials</h5>
+          <img src="./images/image-8.png" class="downButton"/>
+          <p class="downButton">The 2023 High School Yearbook of American Politics</p>
+        </div>
+        <div class="worlds-news-1">
+          <h5>Guest Essays</h5>
+          <img src="./images/image-9.png" class="downButton"/>
+          <p class="downButton">I Promised My Sister I Would Write About How She Chose to</p>
+        </div>
+        <div class="worlds-news-1">
+          <h5>Sunday Opinion</h5>
+          <img src="./images/image-10.png" class="downButton"/>
+          <p class="downButton">It's Time for U.F.O  Whistle-Blowers to Show Their Cards</p>
+        </div>
+      </div>
+    </div>
+
+    <br />
+    <br />
+    <br />
+    <div class="whole-sale-news">
+      <h2 style="padding-bottom: 1rem; border-bottom: 1px solid #000;">ARTS</h2>
+      <div class="worlds-news">
+        <div class="worlds-news-1">
+          <h5>Arts</h5>
+          <img src="./images/image-11.png" class="downButton"/>
+          <p class="downButton">Best TV Episodes of 2023</p>
+        </div>
+        <div class="worlds-news-1">
+          <h5>Art and Design</h5>
+          <img src="./images/image-12.png" class="downButton"/>
+          <p class="downButton">When Design Stars (and Brothers) Collide</p>
+        </div>
+        <div class="worlds-news-1">
+          <h5>Movies</h5>
+          <img src="./images/image-13.png" class="downButton"/>
+          <p class="downButton">'Ferrari' Review: Michael Mann Puts You in the Driver's Seat</p>
+        </div>
+        <div class="worlds-news-1">
+          <h5>Television</h5>
+          <img src="./images/image-14.png" class="downButton"/>
+          <p class="downButton">Love a TV Show? Now You Can Live It.</p>
+        </div>
+        <div class="worlds-news-1">
+          <h5>Music</h5>
+          <img src="./images/image-15.png" class="downButton"/>
+          <p class="downButton">Country Music's Outrage Head Fake</p>
+        </div>
+      </div>
+      
+      <br />
+
+      <div class="worlds-news">
+        <div class="worlds-news-1">
+          <h5>Theater</h5>
+          <img src="./images/image-16.png" class="downButton"/>
+          <p class="downButton">Sondheim Was a Critical Darling. Since His Death, He's a Hitmaker, Too.</p>
+        </div>
+        <div class="worlds-news-1">
+          <h5>Dance</h5>
+          <img src="./images/image-17.png" class="downButton"/>
+          <p class="downButton">What if Dance Could Save the World?</p>
+        </div>
+        <div class="worlds-news-1">
+          <h5>Book Review</h5>
+          <img src="./images/image-18.png" class="downButton"/>
+          <p class="downButton">'Sing in Me, Chatbot...'</p>
+        </div>
+
+        <!-- Hidden -->
+        <div class="worlds-news-1 hidden">
+          <h5>Television</h5>
+          <img src="./images/Girl & boy.jpeg" class="downButton"/>
+          <p class="downButton">Love a TV Show? Now You Can Live It.</p>
+        </div>
+        <div class="worlds-news-1 hidden">
+          <h5>Music</h5>
+          <img src="./images/Father-son.jpeg" class="downButton"/>
+          <p class="downButton">Country Music's Outrage Head Fake</p>
+        </div>
+        <!----- Hidden Endssss-->
+
+      </div>
+
+    </div>
+
+    <br />
+    <br />
+    <br />
+    <!-- <br /> -->
+  
+    <div class="whole-sale-news living">
+      <h2 style="padding-bottom: 1rem; border-bottom: 1px solid #000;">LIVING</h2>
+      <div class="worlds-news">
+        <div class="worlds-news-1">
+          <h5>Style</h5>
+          <img src="./images/image-19.png" class="downButton"/>
+          <p class="downButton">Photos That Defined the Styles Desk in 2023</p>
+        </div>
+        <div class="worlds-news-1">
+          <h5>Food</h5>
+          <img src="./images/image-20.png" class="downButton"/>
+          <p class="downButton">A Cannoli Recipe That'll Bring Sicily to You</p>
+        </div>
+        <div class="worlds-news-1">
+          <h5>Well</h5>
+          <img src="./images/image--2.png" class="downButton"/>
+          <p class="downButton">9 Ways to Improve Your Relationships in 2024</p>
+        </div>
+        <div class="worlds-news-1">
+          <h5>The New York Times Magazine</h5>
+          <img src="./images/image--4.png" class="downButton"/>
+          <p class="downButton">boygenius Is Having All the Fun Rosalvnn Carter Was a Political</p>
+        </div>
+        <div class="worlds-news-1">
+          <h5>T Magazine</h5>
+          <img src="./images/image-10.png" class="downButton"/>
+          <p class="downButton">T Magazine's Favorite Homes of 2023</p>
+        </div>
+      </div>
+      <br />
+
+      <div class="worlds-news">
+        <div class="worlds-news-1">
+          <h5>Travel</h5>
+          <img src="./images/image-13.png" class="downButton"/>
+          <p class="downButton">36 Hours in Hong Kong</p>
+        </div>
+        <div class="worlds-news-1">
+          <h5>Love</h5>
+          <img src="./images/image-14.png" class="downButton"/>
+          <p class="downButton">In the 'Christmas City,' Yuletide Weddings Are the Main Event</p>
+        </div>
+        <div class="worlds-news-1">
+          <h5>Real Estate</h5>
+          <img src="./images/image-26.png" class="downButton"/>
+          <p class="downButton">Suddenly Single, He Took His $200, 000 Budget Up to the Bronx. Would It Be Enough?</p>
+        </div>
+
+        <!-- Hidden -->
+        <div class="worlds-news-1 hidden">
+          <h5>Television</h5>
+          <img src="./images/Girl & boy.jpeg" class="downButton"/>
+          <p class="downButton">Love a TV Show? Now You Can Live It.</p>
+        </div>
+        <div class="worlds-news-1 hidden">
+          <h5>Music</h5>
+          <img src="./images/Father-son.jpeg" class="downButton"/>
+          <p class="downButton">Country Music's Outrage Head Fake</p>
+        </div>
+        <!----- Hidden Endssss-->
+
+      </div>
+
+      
+      
+    </div>
+
+
+    <br />
+    <br />
+    <br />
+    <!-- <br /> -->
+    <!-- <br /> -->
+    <div class="whole-sale-news well">
+      <h2 style="padding-bottom: 1rem; border-top: 1px solid #000; padding-top: 1rem;">Well</h2>
+      <div class="worlds-news">
+        <div class="worlds-news-1 well-news well-border">
+          <img src="./images/image-22.png" class="downButton"/>
+          <h3 class="downButton">Sign Up for Well's 6-Day Energy Challenge</h3>
+          <p class="times" id="times">2 MIN READ</p>
+        </div>
+        
+        <div class="worlds-news-1 well-news well-border">
+          <img src="./images/image-23.png" class="downButton"/>
+          <h3 class="downButton">5 Health Lessons We Learned in 2023</h3>
+          <p class="times" id="times">4 MIN READ</p>
+        </div>
+
+        <div class="worlds-news-1 well-news well-border">
+          <img src="./images/image-24.png" class="downButton"/>
+          <h3 class="downButton">3 Ways to Measure How Fit You Are, Without Focusing on Weight</h3>
+          <p class="times" id="times">6 MIN READ</p>
+        </div>
+
+        <div class="worlds-news-1 well-news well-border">
+          <img src="./images/image-25.png" class="downButton"/>
+          <h3 class="downButton">A Neurologist's  Tips to Protect Your Memory</h3>
+          <p class="times" id="times">5 MIN READ</p>
+        </div>
+
+        <div class="worlds-news-1 well-news">
+          <img src="./images/image-26.png" class="downButton"/>
+          <h3 id="top-health" class="downButton">Your Top Health Questions of 2023, Answered</h3>
+          <p class="times" id="times">3 MIN READ</p>
+        </div>
+      </div>
+    </div>
+    
+    
+    <br />
+    <br />
+
+  <!--------------------   footer   -------------------------->
+    <hr class="line-2" />
+    <hr class="line-2" />
+    <div class="footer">
+      <div class="row-f-1">
+        <h1 id="new-york-times">Global Headlines Hub</h1>
+      </div>
+      <div class="row-f-2">
+        <div class="column-f">
+          <a class="column-f-1" href="">NEWS</a>
+          <a class="cont-f" href="index.html">Home Page</a>
+          <a class="cont-f" href="page-1.html">World</a>
+          <a class="cont-f" href="page-1.html">India</a>
+          <a class="cont-f" href="page-1.html">Politics</a>
+          <a class="cont-f" href="page-1.html">Obituaries</a>
+          <a class="cont-f" href="page-1.html">Business</a>
+          <a class="cont-f" href="page-1.html">Science</a>
+          <a class="cont-f" href="page-1.html">Coronavirus</a>
+          <a class="cont-f" href="page-1.html">Tech</a>
+          <a class="cont-f" href="page-1.html">Arts</a>
+          <a class="cont-f" href="page-1.html">Sports</a>
+          <a class="cont-f" href="page-1.html">Style</a>
+          <a class="cont-f" href="page-1.html">Wildfire Tracker</a>
+          <a class="cont-f" href="page-1.html">Today's Paper</a>
+          <a class="cont-f" href="page-1.html">Corrections</a>
+          <a class="cont-f" href="page-1.html">Trending</a>
+        </div>
+        <div class="column-f">
+          <a class="column-f-1" href="">OPINION</a>
+          <a class="cont-f" href="page-1.html">Today's Opinion</a>
+          <a class="cont-f" href="page-1.html">Editorials</a>
+          <a class="cont-f" href="page-1.html">PGuest Essays</a>
+          <a class="cont-f" href="page-1.html">Letters</a>
+          <a class="cont-f" href="page-1.html">Sunday Opinion</a>
+          <a class="cont-f" href="page-1.html">Opinion Video</a>
+        </div>
+        <div class="column-f">
+          <a class="column-f-1" href="">ARTS</a>
+          <a class="cont-f" href="page-1.html">Today's Arts</a>
+          <a class="cont-f" href="page-1.html">art & Design</a>
+          <a class="cont-f" href="page-1.html">Books</a>
+          <a class="cont-f" href="page-1.html">Best Sellers Book List</a>
+          <a class="cont-f" href="page-1.html">Dance</a>
+          <a class="cont-f" href="page-1.html">Movies</a>
+          <a class="cont-f" href="page-1.html">Music</a>
+          <a class="cont-f" href="page-1.html">Pop Culture</a>
+          <a class="cont-f" href="page-1.html">Telivision</a> 
+          <a class="cont-f" href="page-1.html">Theater</a>
+          <a class="cont-f" href="page-1.html">Video: Arts</a>
+        </div>
+        <div class="column-f">
+          <a class="column-f-1" href="">LIVING</a>
+          <a class="cont-f" href="page-1.html">Automotive</a>
+          <a class="cont-f" href="page-1.html">Games</a>
+          <a class="cont-f" href="page-1.html">Education</a>
+          <a class="cont-f" href="page-1.html">Food</a>
+          <a class="cont-f" href="page-1.html">Health</a>
+          <a class="cont-f" href="page-1.html">Jobs</a>
+          <a class="cont-f" href="page-1.html">Love</a>
+          <a class="cont-f" href="page-1.html">Magazine</a>
+          <a class="cont-f" href="page-1.html">Real Estate</a>
+          <a class="cont-f" href="page-1.html">Style</a> 
+          <a class="cont-f" href="page-1.html">Travel</a>
+        </div>
+        <div class="column-f">
+          <a class="column-f-1" href="">MORE</a>
+          <a class="cont-f" href="page-1.html">Reader Center</a>
+          <a class="cont-f" href="page-1.html">The Athletic</a>
+          <a class="cont-f" href="page-1.html">Wirecutter</a>
+          <a class="cont-f" href="page-1.html">Cooking</a>
+          <a class="cont-f" href="page-1.html">Live Events</a>
+          <a class="cont-f" href="page-1.html">Headway</a>
+          <a class="cont-f" href="page-1.html">The Learning Network</a>
+          <a class="cont-f" href="page-1.html">Tool & Services</a>
+          <a class="cont-f" href="page-1.html">Podcast</a>
+          <a class="cont-f" href="page-1.html">Video</a>
+          <a class="cont-f" href="page-1.html">Graphics</a>
+          <a class="cont-f" href="page-1.html">Time Machine</a>
+          <a class="cont-f" href="page-1.html">Times Store</a>
+          <a class="cont-f" href="page-1.html">Manage My Account</a>
+          <a class="cont-f" href="page-1.html">NYTLicensing</a>
+        </div>
+        <hr class="vertical-f">
+        <div class="column-f footer-subscribe">
+          <a class="column-f-1" href="">SUBSCRIBE</a>
+          <a class="column-f-2" href="page-1.html">Home Delivery</a>
+          <a class="column-f-2" href="page-1.html">Digital Subscriptions</a>
+          <a class="column-f-2" href="page-1.html">Games</a>
+          <a class="column-f-2" href="page-1.html">Cooking</a>
+          <a class="column-f-3 newsletters" href="page-1.html">Email Newsletters</a>
+          <a class="column-f-3 newsletters" href="page-1.html">Corporate Subscription</a>
+          <a class="column-f-3 newsletters" href="page-1.html" style="margin-bottom: 1rem;">Education Rate</a>
+          <hr />
+          <br />
+          <a class="column-f-3 newsletters" href="page-1.html">Mobile Application</a>
+          <a class="column-f-3 newsletters" href="page-1.html">International</a>
+          <a class="column-f-3 newsletters" href="page-1.html">Canada</a>
+          <a class="column-f-3 newsletters" href="page-1.html">Books</a>
+          <a class="column-f-3 newsletters" href="page-1.html">Espsnol</a>
+          <a class="column-f-3 newsletters" href="page-1.html">中文国</a> 
+        </div>
+      </div>
+    </div>
+    <br />
+    <hr class="line-f">
+
+    <div class="row-f-3">
+          <a class="cont-f-2" href="https://www.cairovisions.com" target="_blank">© 2024 Cairovision</a>
+          <a class="cont-f" href="page-1.html">NYTCo</a>
+          <a class="cont-f" href="page-1.html">Contact Us</a>
+          <a class="cont-f" href="page-1.html">Accessibilty</a>
+          <a class="cont-f" href="page-1.html">Work with us</a>
+          <a class="cont-f" href="page-1.html">Advertise</a>
+          <a class="cont-f" href="page-1.html">T Brand Studio</a>
+          <a class="cont-f" href="page-1.html">Your Ad Choices</a>
+          <a class="cont-f" href="page-1.html">Privacy Policy</a>
+          <a class="cont-f" href="page-1.html">Terms of Service</a>
+          <a class="cont-f" href="page-1.html">Terms of sale</a>
+          <a class="cont-f" href="page-1.html">Site Map</a>
+          <a class="cont-f" href="page-1.html">Help</a>
+          <a class="cont-f" href="page-1.html">Subscriptions</a>
+    </div>
+
+</section>
+
+
+
+ 
+
+  <script>
+    // Wait for the DOM to be ready
+    document.addEventListener('DOMContentLoaded', function () {
+        // Get all elements with the "downButton" class
+        var downButtons = document.querySelectorAll('.downButton');
+        
+        // Add an event listener to each element
+        downButtons.forEach(function (button) {
+            button.addEventListener('click', function () {
+                // Redirect to "page-1.html"
+                window.location.href = 'page-1.html';
+            });
+        });
+    });
+  </script>
+
+  <script>
+    // Wait for the DOM to be ready
+    document.addEventListener('DOMContentLoaded', function () {
+        // Get all elements with the "downButton" class
+        var downButtons = document.querySelectorAll('.homeButton');
+        
+        // Add an event listener to each element
+        downButtons.forEach(function (button) {
+            button.addEventListener('click', function () {
+                // Redirect to "page-1.html"
+                window.location.href = 'index.html';
+            });
+        });
+    });
+  </script>
+
+  <!-- <script>
+    document.getElementById("newsVideo").addEventListener("click", function() {
+        var video = this;
+        
+        if (video.paused) {
+          document.getElementById("videoInfo").style.display = "block";
+            // video.play();
+        } else {
+            video.play();
+            document.getElementById("videoInfo").style.display = "none";
+
+            // Display additional information
+        }
+    });
+  </script> -->
+  
+  
+</body>
+</html>

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .login-container {
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 60px;
+      max-width: 600px;
+      width: 100%;
+      text-align: center;
+      position: relative;
+    }
+    
+    .login-container h2 {
+      margin-bottom: 30px;
+      text-align: justify;
+      margin-left: 14px;
+      /* font-weight: 700; */
+      font-family: sans-serif;
+    }
+    
+    .login-container input[type="text"],
+    .login-container input[type="password"] {
+      width: calc(100% - 28px);
+      padding: 20px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      font-size: 17px;
+    }
+
+    /* .login-container input[type="password"] {
+      width: calc(100% - 28px);
+    } */
+    .password-toggle {
+      position: absolute;
+      top: 100%; /* Center vertically */
+      left: 10px;
+      transform: translateY(-50%);
+    }
+
+    .password-toggle label {
+      cursor: pointer;
+    }
+   
+    .password-toggle .checkmark {
+      position: relative;
+      display: inline-block;
+      width: 25px;
+      height: 25px;
+      background-color: #ccc;
+      border-radius: 50%;
+    }
+    .password-toggle .checkmark:after {
+      content: '';
+      position: absolute;
+      display: none;
+      top: 7px;
+      left: 9px;
+      width: 6px;
+      height: 12px;
+      border: solid #fff;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
+    .password-toggle input[type="checkbox"]:checked + .checkmark {
+      background-color: #4CAF50;
+    }
+    .password-toggle input[type="checkbox"]:checked + .checkmark:after {
+      display: block;
+    }
+    .password-toggle i {
+      color: #888;
+    }
+    .password-toggle i:hover {
+      color: #333;
+    }
+    .login-container button {
+      background-color: rgb(53, 99, 110);
+      color: white;
+      padding: 16px 50px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      float: left;
+      margin-left: 14px;
+    }
+    .login-container button:hover {
+      background-color: rgb(42, 165, 196);
+    }
+    .error-message {
+      color: red;
+      margin-top: 10px;
+      text-align: left;
+      margin-left: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <img src="./images/global-icon.png" style="width: 30%; height: 70px;"/>
+    <h2> Admin Login</h2>
+    <form id="loginForm">
+      <input type="text" id="username" placeholder="Username">
+      <br />
+      <div style="position: relative;">
+        <input type="password" id="password" placeholder="Password">
+        <div class="password-toggle">
+          <input type="checkbox" id="showPassword">
+          <span style="font-size: 16px;">Show Password</span>
+          <!-- <label for="showPassword" class="checkmark"></label> -->
+        </div>
+      </div>
+      <br />
+      <br />
+     <div> <button type="submit">Login</button></div>
+    </form>
+    <br />
+    <br />
+    <br />
+    <div class="error-message" id="errorMessage"></div>
+  </div>
+
+  <script>
+    document.getElementById('showPassword').addEventListener('change', function() {
+      var passwordField = document.getElementById("password");
+      passwordField.type = this.checked ? "text" : "password";
+    });
+
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      var username = document.getElementById('username').value;
+      var password = document.getElementById('password').value;
+
+      // Simple validation
+      if (username.trim() === '' || password.trim() === '') {
+        document.getElementById('errorMessage').innerText = 'Please enter both username and password.';
+      } else {
+        // Perform login actions here
+        // For demo purposes, just log the username and password to the console
+        console.log('Username:', username);
+        console.log('Password:', password);
+        // Reset error message
+        document.getElementById('errorMessage').innerText = '';
+      }
+    var username = document.getElementById('username').value;
+      var password = document.getElementById('password').value;
+      if (username.trim() === '' || password.trim() === '') {
+        document.getElementById('errorMessage').innerText = 'Please enter both username and password.';
+      } else {
+        var apiUrl = 'https://49.205.196.123:4418/api/User/UserAuthenticat';
+        var requestBody = {
+          UserName: username,
+          Password: password
+        };
+
+        fetch(apiUrl + '?UserName=' + encodeURIComponent(requestBody.UserName) + '&Password=' + encodeURIComponent(requestBody.Password), {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then(data => {
+          if (data && data.length > 0 && data[0].userID !== null) {
+            // Authentication successful
+            sessionStorage.setItem('authenticated', 'true');
+            sessionStorage.setItem('userID', data[0].userID);
+            window.location.href = 'another_page.html'; // Replace 'another_page.html' with your desired destination
+          } else {
+            // Authentication failed
+            document.getElementById('errorMessage').innerText = 'Invalid username or password.';
+          }
+        })
+        .catch(error => {
+          console.error('There was a problem with your fetch operation:', error);
+          document.getElementById('errorMessage').innerText = 'Login failed. Please try again.';
+        });
+      }
+    });
+  </script>
+</body>
+</html>
